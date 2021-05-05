@@ -6,32 +6,40 @@ import sys
 def finding(word, directory):
     
     flag = False
+    try:
+        for subdir, dirs, files in os.walk(directory):
+            for file in files:
 
-    for subdir, dirs, files in os.walk(directory):
-        for file in files:
-            
-            filepath = subdir + os.sep + file
-            
-            if filepath.endswith(".php") or filepath.endswith(".js"): 
-                with open(filepath, "r") as f:
-                    lines = f.read().split("\n")
+                filepath = subdir + os.sep + file
 
-                    for i,line in enumerate(lines):
-                        if word in line: 
-                            flag = True
-                            print("\"{}\" se encuentra en la linea {} de {}".format(word, i+1,filepath))
+                if filepath.endswith(".php") or filepath.endswith(".js"): 
+                    with open(filepath, "r") as f:
+                        lines = f.read().split("\n")
 
-                continue
-            else:
-                continue
-            
+                        for i,line in enumerate(lines):
+                            if word in line: 
+                                flag = True
+                                print("\"{}\" se encuentra en la linea {} de {}".format(word, i+1,filepath))
 
-    if flag == False:
-        print("Houston! We have a problem")
-    
+                    continue
+                else:
+                    continue
+
+        if flag == False:
+            print("Houston! We have a problem")
+    except:
+        pass
+
 if __name__ == "__main__":
-
-    word = sys.argv[1]
+    i=1
+    word = ""
+    for i in range(len(sys.argv)):
+        if i > 1:
+            word = word + " " + sys.argv[i]
+        elif i == 1:
+            word = sys.argv[i]
+        i=i+1
+    
     directory = os.getcwd()
     
     finding(word, directory)
