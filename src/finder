@@ -1,0 +1,38 @@
+#! /home/mskdl6/python-projects/finder/venv/bin/python
+
+import os
+import sys
+
+def finding(word, directory):
+    
+    flag = False
+
+    for subdir, dirs, files in os.walk(directory):
+        for file in files:
+            
+            filepath = subdir + os.sep + file
+            
+            if filepath.endswith(".php") or filepath.endswith(".js"): 
+                with open(filepath, "r") as f:
+                    lines = f.read().split("\n")
+
+                    for i,line in enumerate(lines):
+                        if word in line: 
+                            flag = True
+                            print("\"{}\" se encuentra en la linea {} de {}".format(word, i+1,filepath))
+
+                continue
+            else:
+                continue
+            
+
+    if flag == False:
+        print("Houston! We have a problem")
+    
+if __name__ == "__main__":
+
+    word = sys.argv[1]
+    directory = os.getcwd()
+    
+    finding(word, directory)
+
