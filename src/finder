@@ -2,7 +2,10 @@
 
 import os
 import sys
+import re
+from colorama import init, Fore, Back
 
+init(autoreset=True)
 def finding(word, directory):
     
     flag = False
@@ -11,13 +14,16 @@ def finding(word, directory):
         try:
             for file in files:
                 filepath = subdir + os.sep + file
-                if filepath.endswith(".php") or filepath.endswith(".js"): 
+                printpath = re.sub(directory, '', filepath)
+                pword ="\""+word+"\""
+                if filepath.endswith(".php") or filepath.endswith(".js"):
                     with open(filepath, "r") as f:
                         lines = f.read().split("\n")
                         for i,line in enumerate(lines):
                             if word in line: 
                                 flag = True
-                                print("\"{}\" se encuentra en la linea {} de {}".format(word, i+1,filepath))
+                                k = i+1
+                                print(Fore.WHITE+Back.BLACK+pword+Fore.RESET+Back.RESET+" se encuentra en la linea "+Fore.WHITE+Back.BLACK+str(k)+Fore.RESET+Back.RESET+" de "+Fore.WHITE+Back.BLACK+str(printpath))
                     continue
                 else:
                     continue
