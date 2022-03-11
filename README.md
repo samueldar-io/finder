@@ -1,5 +1,5 @@
 # finder
-Utility for finding where is located a specified function in WordPress projects
+Utility to find where is located a specified function in WordPress projects
 
 # Install
 To install just add src directory to your $PATH variable system
